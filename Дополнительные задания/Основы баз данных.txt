@@ -1,0 +1,22 @@
+1:
+
+1.i Через Count, второй вариант будет работать быстрее (но, возможно, и первый бд оптимизирует для нас сама)
+SELECT count(*) from test
+SELECT count(test.order_id) from test
+
+1.ii Через оконную функцию
+select number as count FROM 
+(select ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) as number from test) temp
+order by temp.number DESC
+LIMIT 1
+
+1.iii Вытащить эту информацию из схемы таблицы, например для MySQL:
+
+SELECT table_name as name, table_rows as count
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'test';
+
+
+2:
+
+Да, запрос выполнится. Без схемы и описания задачи не очень понятно, есть ли смысл выводить в результат order_code, потому что возьмется только первое вхождение из получившейся группы.

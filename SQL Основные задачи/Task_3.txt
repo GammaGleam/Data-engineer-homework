@@ -1,0 +1,16 @@
+Задача 3
+
+Ссылка на задачу:
+https://sql-academy.org/ru/trainer/tasks/61
+
+Условие:
+Выведите список комнат, которые были зарезервированы в течение 12 недели 2020 года.
+Поля в результирующей таблице:
+Rooms.*
+
+Решение:
+SELECT Rooms.*
+FROM Rooms 
+LEFT OUTER JOIN Reservations 
+ON Rooms.id = Reservations.room_id 
+WHERE WEEKOFYEAR(Reservations.start_date) = '12' AND YEAR(Reservations.start_date) = '2020';
