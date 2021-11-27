@@ -1,0 +1,16 @@
+Задача 1 
+
+Ссылка на задачу:
+https://sql-academy.org/ru/trainer/tasks/16
+
+Условие:
+Вывести отсортированный по количеству перелетов (по убыванию) и имени (по возрастанию) список пассажиров, совершивших хотя бы 1 полет.
+Поля в результирующей таблице:
+name, count
+
+Решение:
+SELECT Passenger.name, COUNT(Pass_in_trip.trip) AS count FROM Passenger
+INNER JOIN Pass_in_trip ON Passenger.id = Pass_in_trip.passenger
+GROUP BY Pass_in_trip.passenger
+HAVING COUNT(Pass_in_trip.trip) > 0 
+ORDER BY COUNT(Pass_in_trip.trip) DESC, Passenger.name ASC;
